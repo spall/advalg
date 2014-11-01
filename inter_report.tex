@@ -50,6 +50,33 @@ Because the authors of this paper were able to improve upon the upper bound leng
 \subsection*{Explain the impact}
 Explain what impact (if any) this result has had (or might have):
 
+\subsection*{How the paper does what it does}
+
+previous papers defined a greedy approximation algorithm for the shortest common superstring
+problem, and conjectured that the greedy algorithm would return a superstring no longer than 
+2*n, where n is the length of the shortest common superstring.  [10][11]
+\\
+[4] provides the first provably good approximation algorithm for the problem, which produces
+a superstring of at most n log n length, where n is the optimal lenght.
+[4] proposes a new algorithm, group-merge that starts with
+an input set S and an empty set T
+
+How does what [4] proposes differ from algos in [10][11]?
+
+What bottleneck did these other papers hit?
+none?
+
+Bottleneck?  all conjecture that algo is actually 2n but can't prove it, so this paper
+takes steps towards proving the constant*n bound.
+
+This paper proposes concat cycles, which produces string of length at most 4*n
+then present mcgreedy which mimics concat-cycles
+
+mgreedy has a Set of strings S and an empty set T, just like [4]
+then while S is not empty choose s and t in S, where overlap is maximized.  if s != t
+then remove them from S, and replace with merge(s,t).  if s = t, remove s from S and add it to T
+
+when S is empty output concat of strings in T
 
 
 {
