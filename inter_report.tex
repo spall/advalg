@@ -1,4 +1,4 @@
-\documentclass[letterpaper,twocolumn,12pt]{article}
+\documentclass[letterpaper,twocolumn,11pt]{article}
 \usepackage{epsfig,xspace,url}
 \usepackage{authblk}
 
@@ -13,29 +13,13 @@
 
 \subsection*{Problem Being Solved}
 
-previously defined shortest super strings problem
-the problem is known to be NP-hard, but there is a 
-greedy solution that at the time of the paper was used
-in DNA sequencing and data compression.  
-
-work done in this paper:
-show ``greedy algo'' has upper bound of 4n, when only
-previous nontrivial algo is O(nlogn)???
-
+This paper improves upon an algorithm GREEDY \cite{tarhio1988greedy},which is the \textit{shortest common superstring problem}. The GREEDY algorithm is an approximation algorithm which given a finite set of strings $F$ where each string comes from some finite or infinite alphabet $\sum$ it can find an approximate shortest string $w$ such that each string $s \in F$ is a substring of $w$. The paper proves upper bounds on the GREEDY algorithm, as well as improves upon the GREEDY algorithm to produce a better upper bound. The GREEDY algorithm, and the improved upon algorithm are approximation algorithms, because the problem is proven to be NP-Hard. \cite{gallant1980finding}
+ 
 
 
 \subsection*{Main Result}
 
-present new simplified greedy algo that produces
-a superstring of length at most 3n.  
-
-so they improve on previous work, by setting new upper bound
-and new greedy algo (upper bound of the length)
-
-also show problem to be MAX SNP-hard, which implies 
-ptas is unlikely? what is ptas
-
-
+The Main result of this paper is a proof that the GREEDY algorithm has an upper bound approximated shortest superstring of at most length $4n$. They then create an algorithm TGREEDY, which they prove has a upper bound length of $3n$. Lastly, the authors show that the problem itself is MAX SNP-hard.
 
 \subsection*{Why result is important}
 
@@ -48,7 +32,9 @@ Because the authors of this paper were able to improve upon the upper bound leng
 
 
 \subsection*{Explain the impact}
-Explain what impact (if any) this result has had (or might have):
+As explained in the previous section the most significant impact came for the biology field. But in terms of computer science there isn't any huge impact. The only noticable impact would come in compression \cite{storer1988data}. Obviously, if you care to encode a string as a minimum superstring, each improvement on the approximated length of the superstring will get you better compression. Lastly, the paper showed that the GREEDY algorithm could be improved upon. Since the publication we were able to find 8 papers which improved the upper bound from $3n$ to, $2 \frac{8}{9}n$, $2 \frac{5}{6}n$, $2 \frac{50}{63}n$, $2 \frac{3}{4}n$, $2 \frac{2}{3}n$, $2.596n$ and finally $2 \frac{1}{2}n$ in 2000 \cite{sweedyk2000boldmath}.
+
+
 
 \subsection*{How the paper does what it does}
 
