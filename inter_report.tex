@@ -1,13 +1,17 @@
-\documentclass[11pt,titlepage,margin=.5in]{article}
+\documentclass[letterpaper,twocolumn,12pt]{article}
+\usepackage{epsfig,xspace,url}
+\usepackage{authblk}
+
+
+\title{Linear Approximation of Shortest Superstrings report}
+\author[1]{Sarah Spall And Scott Bauer}
+
 
 \begin{document}
 
-\title{Linear Approximation of Shortest Superstrings report}
-\author{Sarah Spall}
-\author{Scotty Bauer}
 \maketitle
 
-problem being solved:
+\subsection*{Problem Being Solved}
 
 previously defined shortest super strings problem
 the problem is known to be NP-hard, but there is a 
@@ -20,7 +24,7 @@ previous nontrivial algo is O(nlogn)???
 
 
 
-main result:
+\subsection*{Main Result}
 
 present new simplified greedy algo that produces
 a superstring of length at most 3n.  
@@ -33,8 +37,27 @@ ptas is unlikely? what is ptas
 
 
 
+\subsection*{Why result is important}
+
+This result is, in our opinion, most important to the field of biology. To understand why this improvement is important we must quickly rewview some biology 101. Chromosomes, which everyone has, contains our DNA, which in turn carries our genes, among other life important information. In bioinformatics scientists need to sequence DNA. DNA sequencing is the process of determining the order of neucleotides in DNA. Sequencing DNA is an extremely important portion of biology, which helps us determing if a child is ours, determine how a virus evolves and the list continues on. 
+
+The issue with DNA sequencing, at least in the early 90's, was technology was not very good. In early 90's, the methods of sequencing only allowed for a few hundred neucelotide fragments to be generated \cite{karp1993mapping}. Because of this technologicial limitation, scientist would look for the best sequence of the entire DNA molecule. The best sequence is the shortest sequence such that it contains each fragment of the DNA. As you can see, the DNA problem can be mapped onto a shortest supersequence problem. 
+
+Because the authors of this paper were able to improve upon the upper bound length of the approximated best superstring from $4n$ to $3n$ it allowed bioinformatic researchers to sequence DNA more accurately. 
 
 
+
+\subsection*{Explain the impact}
+Explain what impact (if any) this result has had (or might have):
+
+
+
+{
+  %\footnotesize 
+  \small 
+  \bibliographystyle{acm}
+  \bibliography{biblio}
+}
 
 \end{document}
 
