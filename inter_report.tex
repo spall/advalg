@@ -1,4 +1,4 @@
-\documentclass[letterpaper,twocolumn,11pt]{article}
+\documentclass[letterpaper,twocolumn,11pt,titlepage]{article}
 \usepackage{epsfig,xspace,url}
 \usepackage{authblk}
 \addtolength{\oddsidemargin}{-.25in}
@@ -12,33 +12,36 @@
 \author[1]{Sarah Spall And Scott Bauer}
 
 
+
+
 \begin{document}
 
 \maketitle
 \newpage
 
+
 \subsection*{Problem Being Solved}
 
-This paper improves upon an algorithm GREEDY \cite{tarhio1988greedy},which is the \textit{shortest common superstring problem}. The GREEDY algorithm is an approximation algorithm which given a finite set of strings $F$ where each string comes from some finite or infinite alphabet $\sum$ it can find an approximate shortest string $w$ such that each string $s \in F$ is a substring of $w$. The paper proves upper bounds on the GREEDY algorithm, as well as improves upon the GREEDY algorithm to produce a better upper bound. The GREEDY algorithm, and the improved upon algorithm are approximation algorithms, because the problem is proven to be NP-Hard. \cite{gallant1980finding}
+This paper improves upon an algorithm GREEDY \cite{tarhio1988greedy},which is the \textit{shortest common superstring problem}. The GREEDY algorithm is an approximation algorithm which given a finite set of strings $F$ where each string comes from some finite or infinite alphabet $\sum$ GREEDY can find an approximate shortest string $w$ such that each string $s \in F$ is a substring of $w$. The paper proves upper bounds on the GREEDY algorithm, as well as improves upon the GREEDY algorithm to produce a better upper bound. The  \textit{shortest common superstring problem} is known to be NP-hard, therefore approximation algorithms have to be used. The downside of the approximation algorithms is one cannot find the optimal solution.  \cite{gallant1980finding}
  
 
 
 \subsection*{Main Result}
 
-The Main result of this paper is a proof that the GREEDY algorithm has an upper bound approximated shortest superstring of at most length $4n$. They then create an algorithm TGREEDY, which they prove has a upper bound length of $3n$. Lastly, the authors show that the problem itself is MAX SNP-hard.
+The main result of this paper is a proof that the GREEDY algorithm has an upper bound approximated shortest superstring of at most length $4n$. They then make two new algorithms, MGREEDY and TGREEDY. MGREEDY follows the GREEDY algorithm but diverges at on particular step which allows the authors to implement TGREEDY. They prove TGREEDY has an upper bound approximate shortest superstring length of $3n$. Lastly, the authors show that the problem itself is MAX SNP-hard.
 
 \subsection*{Why result is important}
 
-This result is, in our opinion, most important to the field of biology. To understand why this improvement is important we must quickly rewview some biology 101. Chromosomes, which everyone has, contains our DNA, which in turn carries our genes, among other life important information. In bioinformatics scientists need to sequence DNA. DNA sequencing is the process of determining the order of neucleotides in DNA. Sequencing DNA is an extremely important portion of biology, which helps us determing if a child is ours, determine how a virus evolves and the list continues on. 
+This result is, in our opinion, most important to the field of biology. To understand why this improvement is important we must quickly review some biology 101. Chromosomes contain our DNA, which in turn carries our genes, among other life important information. In bioinformatics scientists need to sequence DNA. DNA sequencing is the process of determining the order of neucleotides in DNA. Sequencing DNA is an extremely important portion of biology, which helps us determining if a child is ours, determine how a virus evolves, locate diseases in the genome, among other things.
 
-The issue with DNA sequencing, at least in the early 90's, was technology was not very good. In early 90's, the methods of sequencing only allowed for a few hundred neucelotide fragments to be generated \cite{karp1993mapping}. Because of this technologicial limitation, scientist would look for the best sequence of the entire DNA molecule. The best sequence is the shortest sequence such that it contains each fragment of the DNA. As you can see, the DNA problem can be mapped onto a shortest supersequence problem. 
+The issue with DNA sequencing in the early 90's, was technology was still in development, therefore poorly suited for sequencing DNA. The methods of sequencing only allowed for a few hundred neucelotide fragments to be generated \cite{karp1993mapping}. Because of this technological limitation, scientist would look for the best sequence of the entire DNA molecule. The best sequence is defined as the shortest sequence such that it contains each fragment of the DNA. As you can see, the DNA problem can be mapped onto a shortest supersequence problem. 
 
-Because the authors of this paper were able to improve upon the upper bound length of the approximated best superstring from $4n$ to $3n$ it allowed bioinformatic researchers to sequence DNA more accurately. 
+Because the authors of this paper were able to improve upon the upper bound length of the approximated best superstring from $4n$ to $3n$ it allowed bioinformatic researchers to sequence more DNA with their limited technologies. 
 
 
 
 \subsection*{Explain the impact}
-As explained in the previous section the most significant impact came for the biology field. But in terms of computer science there isn't any huge impact. The only noticable impact would come in compression \cite{storer1988data}. Obviously, if you care to encode a string as a minimum superstring, each improvement on the approximated length of the superstring will get you better compression. Lastly, the paper showed that the GREEDY algorithm could be improved upon. Since the publication we were able to find 8 papers which improved the upper bound from $3n$ to, $2 \frac{8}{9}n$, $2 \frac{5}{6}n$, $2 \frac{50}{63}n$, $2 \frac{3}{4}n$, $2 \frac{2}{3}n$, $2.596n$ and finally $2 \frac{1}{2}n$ in 2000 \cite{sweedyk2000boldmath}.
+As explained in the previous section the most significant impact came for the biology field. One can see the impact in biology by looking at the compression ratio the algorithm provides. A superstring of some set is allowed to be the concatenation of all the elements in the set. Obviously, this gives you no compression, your superstring is length $\| S \|$, where $S$ is the set of strings. The length is the size of all the elements in the set. Using the algorithm in the paper one can create a superstring which gives us compression, where compression is the amount of characters saved by the algorithm compared to the concatenation of the set items. This compression yields smaller amounts of neucleotides to sequence allowing researchers to do what ever they do with that information.  In terms of computer science there isn't any huge impact.  The only noticeable impact would come in compression \cite{storer1988data}. Obviously, if you care to encode a string as a minimum superstring, each improvement on the approximated length of the superstring will get you better compression. Lastly, the paper showed that the GREEDY algorithm could be improved upon. Since the publication we were able to find 8 papers which improved the upper bound from $3n$ to, $2 \frac{8}{9}n$, $2 \frac{5}{6}n$, $2 \frac{50}{63}n$, $2 \frac{3}{4}n$, $2 \frac{2}{3}n$, $2.596n$ and finally $2 \frac{1}{2}n$ in 2000 \cite{sweedyk2000boldmath}.
 
 
 
@@ -47,7 +50,6 @@ Previous papers \cite{tarhio1988greedy} \cite{turner1989approximation} presented
 Li \cite{li1990towards} proposes a different algorithm that provides the first provably good approximation algorithm for the shortest common superstring problem, with a bound of O(n logn).  The idea behind the algorithm is to merge large groups.  Each time two strings are mreged the algorithm tries to choose to merge two strings in a way that would make other strings in the set become substrings.  \\
 \\
 Previous work failed to prove that an algorithm has the O(n) conjectured bound.  Blum, Avrim, et al. \cite{blum1991linear} present a new modified greedy approximation algorithm, TGREEDY, and prove that it produces superstrings of length at most 3n, where n is the length of the optimal superstring.  \\
-
 
 \cite{blum1991linear} relates shortest common superstring problem to the traveling salesman problem, as \cite{turner1989approximation} did.  Then \cite{blum1991linear} goes on to describe an algorithm concat-cycles which decomposes a weighted directed graph into cycles such that each vertex is in one cycle and the total weight of the cycles is minimized.  It is then proved that this algorithm produces a string of length at most 4*n.  MGREEDY, an algorithm that mimics the previously presented concat-cycles algorithm, is then presented.
 
