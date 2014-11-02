@@ -1,7 +1,12 @@
 \documentclass[letterpaper,twocolumn,11pt]{article}
 \usepackage{epsfig,xspace,url}
 \usepackage{authblk}
+\addtolength{\oddsidemargin}{-.25in}
+\addtolength{\evensidemargin}{-.25in}
+\addtolength{\textwidth}{.5in}
 
+\addtolength{\topmargin}{-.25in}
+\addtolength{\textheight}{1in}
 
 \title{Linear Approximation of Shortest Superstrings report}
 \author[1]{Sarah Spall And Scott Bauer}
@@ -10,6 +15,7 @@
 \begin{document}
 
 \maketitle
+\newpage
 
 \subsection*{Problem Being Solved}
 
@@ -37,28 +43,21 @@ As explained in the previous section the most significant impact came for the bi
 
 
 \subsection*{How the paper does what it does}
-
-previous papers defined a greedy approximation algorithm for the shortest common superstring
-problem, and conjectured that the greedy algorithm would return a superstring no longer than 
-2*n, where n is the length of the shortest common superstring.  [10][11]
+Previous papers \cite{tarhio1988greedy} \cite{turner1989approximation} presented a greedy approximation algorithm that was conjectured to produce a superstring of length 2n, where n is the length of the optimal shortest common superstring.  The greedy approximation algorithm finds a pair of strings s and t in R, which have the longest mutual overlap amongst all possible pairs in R, and then removes s and t from R.  The overlapped string of s and t is then placed in R.  This is repeated until R contains one string, or no two strings have a non-empty overlap. \cite{tarhio1988greedy} \\
+Li \cite{li1990towards} proposes a different algorithm that provides the first provably good approximation algorithm for the shortest common superstring problem, with a bound of O(n logn).  The idea behind the algorithm is to merge large groups.  Each time two strings are mreged the algorithm tries to choose to merge two strings in a way that would make other strings in the set become substrings.  \\
 \\
-[4] provides the first provably good approximation algorithm for the problem, which produces
-a superstring of at most n log n length, where n is the optimal lenght.
-[4] proposes a new algorithm, group-merge that starts with
-an input set S and an empty set T
+Previous work failed to prove that an algorithm has the O(n) conjectured bound.  Blum, Avrim, et al. \cite{blum1991linear} present a new modified greedy approximation algorithm, TGREEDY, and prove that it produces superstrings of length at most 3n, where n is the length of the optimal superstring.  \\
 
-How does what [4] proposes differ from algos in [10][11]?
 
-What bottleneck did these other papers hit?
-none?
+\cite{blum1991linear} relates shortest common superstring problem to the traveling salesman problem, as \cite{turner1989approximation} did.  Then \cite{blum1991linear} goes on to describe an algorithm concat-cycles which decomposes a weighted directed graph into cycles such that each vertex is in one cycle and the total weight of the cycles is minimized.  It is then proved that this algorithm produces a string of length at most 4*n.  MGREEDY, an algorithm that mimics the previously presented concat-cycles algorithm, is then presented.
 
-Bottleneck?  all conjecture that algo is actually 2n but can't prove it, so this paper
-takes steps towards proving the constant*n bound.
+How does what \cite{li1990towards} proposes differ from algos in \cite{tarhio1988greedy}\cite{turner1989approximation}?
+
 
 This paper proposes concat cycles, which produces string of length at most 4*n
 then present mcgreedy which mimics concat-cycles
 
-mgreedy has a Set of strings S and an empty set T, just like [4]
+mgreedy has a Set of strings S and an empty set T, just like \cite{li1990towards}
 then while S is not empty choose s and t in S, where overlap is maximized.  if s != t
 then remove them from S, and replace with merge(s,t).  if s = t, remove s from S and add it to T
 
