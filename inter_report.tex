@@ -35,7 +35,7 @@ Because the authors of this paper were able to improve upon the upper bound leng
 
 
 \subsection*{Explain the impact}
-As explained in the previous section the most significant impact came for the biology field. One can see the impact in biology by looking at the compression ratio the algorithm provides. A superstring of some set is allowed to be the concatenation of all the elements in the set. Obviously, this gives you no compression, your superstring is length $\| S \|$, just the size of all the elements in the set. Using the algorithm in the paper one can create a superstring which gives us compression, where compression is the amount of characters saved by the algorithm compared to the concatenation of the set items. This compression yields smaller amounts of neucleotides to sequence allowing researchers to do what ever they do with that information.  In terms of computer science there isn't any huge impact.  The only noticeable impact would come in compression \cite{storer1988data}. Obviously, if you care to encode a string as a minimum superstring, each improvement on the approximated length of the superstring will get you better compression. Lastly, the paper showed that the GREEDY algorithm could be improved upon. Since the publication we were able to find 8 papers which improved the upper bound from $3n$ to, $2 \frac{8}{9}n$, $2 \frac{5}{6}n$, $2 \frac{50}{63}n$, $2 \frac{3}{4}n$, $2 \frac{2}{3}n$, $2.596n$ and finally $2 \frac{1}{2}n$ in 2000 \cite{sweedyk2000boldmath}.
+As explained in the previous section the most significant impact came for the biology field. One can see the impact in biology by looking at the compression ratio the algorithm provides. A superstring of some set is allowed to be the concatenation of all the elements in the set. Obviously, this gives you no compression, your superstring is length $\| S \|$, where $S$ is the set of strings. The length is the size of all the elements in the set. Using the algorithm in the paper one can create a superstring which gives us compression, where compression is the amount of characters saved by the algorithm compared to the concatenation of the set items. This compression yields smaller amounts of neucleotides to sequence allowing researchers to do what ever they do with that information.  In terms of computer science there isn't any huge impact.  The only noticeable impact would come in compression \cite{storer1988data}. Obviously, if you care to encode a string as a minimum superstring, each improvement on the approximated length of the superstring will get you better compression. Lastly, the paper showed that the GREEDY algorithm could be improved upon. Since the publication we were able to find 8 papers which improved the upper bound from $3n$ to, $2 \frac{8}{9}n$, $2 \frac{5}{6}n$, $2 \frac{50}{63}n$, $2 \frac{3}{4}n$, $2 \frac{2}{3}n$, $2.596n$ and finally $2 \frac{1}{2}n$ in 2000 \cite{sweedyk2000boldmath}.
 
 
 
@@ -44,7 +44,7 @@ As explained in the previous section the most significant impact came for the bi
 previous papers defined a greedy approximation algorithm for the shortest common superstring
 problem, and conjectured that the greedy algorithm would return a superstring no longer than 
 2*n, where n is the length of the shortest common superstring.  [10][11]
-\\
+
 [4] provides the first provably good approximation algorithm for the problem, which produces
 a superstring of at most n log n length, where n is the optimal lenght.
 [4] proposes a new algorithm, group-merge that starts with
