@@ -1,4 +1,4 @@
-\documentclass[letterpaper,twocolumn,11pt,titlepage]{article}
+\documentclass[letterpaper,11pt,titlepage]{article}
 \usepackage{epsfig,xspace,url}
 \usepackage{authblk}
 \usepackage[margin=.5in]{geometry}
@@ -26,17 +26,17 @@
 \newpage
 
 
-\subsection*{Problem Being Solved}
+\subsection*{Problem}
 
-This paper improves upon an algorithm GREEDY \cite{tarhio1988greedy},which is the \textit{shortest common superstring problem}. The GREEDY algorithm is an approximation algorithm which given a finite set of strings $F$ where each string comes from some finite or infinite alphabet $\sum$ GREEDY can find an approximate shortest string $w$ such that each string $s \in F$ is a substring of $w$. The paper proves upper bounds on the GREEDY algorithm, as well as improves upon the GREEDY algorithm to produce a better upper bound. The  \textit{shortest common superstring problem} is known to be NP-hard, therefore approximation algorithms have to be used. The downside of the approximation algorithms is one cannot find the optimal solution.  \cite{gallant1980finding}
+This paper improves upon an algorithm GREEDY \cite{tarhio1988greedy},which is the \textit{shortest common superstring problem}. The GREEDY algorithm is an approximation algorithm where given a finite set of strings $F$ where each string comes from some finite or infinite alphabet $\sum$ GREEDY can find an approximate shortest string $w$ such that each string $s \in F$ is a substring of $w$. The paper proves upper bounds on the GREEDY algorithm, as well as improves upon the GREEDY algorithm to produce a better upper bound. The  \textit{shortest common superstring problem} is known to be NP-hard, therefore approximation algorithms have to be used. The downside of the approximation algorithms is one cannot find the optimal solution.  \cite{gallant1980finding}
  
 
 
-\subsection*{Main Result}
+\subsection*{Result}
 
 The main result of this paper is a proof that the GREEDY algorithm has an upper bound approximated shortest superstring of at most length $4n$. They then make two new algorithms, MGREEDY and TGREEDY. MGREEDY follows the GREEDY algorithm but diverges at on particular step which allows the authors to implement TGREEDY. They prove TGREEDY has an upper bound approximate shortest superstring length of $3n$. Lastly, the authors show that the problem itself is MAX SNP-hard.
 
-\subsection*{Why result is important}
+\subsection*{Importance}
 
 This result is, in our opinion, most important to the field of biology. To understand why this improvement is important we must quickly review some biology 101. Chromosomes contain our DNA, which in turn carries our genes, among other life important information. In bioinformatics scientists need to sequence DNA. DNA sequencing is the process of determining the order of neucleotides in DNA. Sequencing DNA is an extremely important portion of biology, which helps us determining if a child is ours, determine how a virus evolves, locate diseases in the genome, among other things.
 
@@ -46,38 +46,27 @@ Because the authors of this paper were able to improve upon the upper bound leng
 
 
 
-\subsection*{Explain the impact}
-As explained in the previous section the most significant impact came for the biology field. One can see the impact in biology by looking at the compression ratio the algorithm provides. A superstring of some set is allowed to be the concatenation of all the elements in the set. Obviously, this gives you no compression, your superstring is length $\| S \|$, where $S$ is the set of strings. The length is the size of all the elements in the set. Using the algorithm in the paper one can create a superstring which gives us compression, where compression is the amount of characters saved by the algorithm compared to the concatenation of the set items. This compression yields smaller amounts of neucleotides to sequence allowing researchers to do what ever they do with that information.  In terms of computer science there isn't any huge impact.  The only noticeable impact would come in compression \cite{storer1988data}. Obviously, if you care to encode a string as a minimum superstring, each improvement on the approximated length of the superstring will get you better compression. Lastly, the paper showed that the GREEDY algorithm could be improved upon. Since the publication we were able to find 8 papers which improved the upper bound from $3n$ to, $2 \frac{8}{9}n$, $2 \frac{5}{6}n$, $2 \frac{50}{63}n$, $2 \frac{3}{4}n$, $2 \frac{2}{3}n$, $2.596n$ and finally $2 \frac{1}{2}n$ in 2000 \cite{sweedyk2000boldmath}.
+\subsection*{Impact}
+As explained in the previous section the most significant impact came for the biology field. One can see the impact in biology by looking at the compression ratio the algorithm provides. A superstring of some set is allowed to be the concatenation of all the elements in the set. Obviously, this gives you no compression, your superstring is length $\| S \|$, where $S$ is the set of strings. The length is the size of all the elements in the set. Using the algorithm in the paper one can create a superstring which gives us compression, where compression is the amount of characters saved by the algorithm compared to the concatenation of the set items. This compression yields smaller amounts of neucleotides to sequence allowing researchers to do what ever they do with that information.  
+
+In terms of computer science there isn't any huge impact.  The only noticeable impact would come in compression \cite{storer1988data}. Obviously, if you care to encode a string as a minimum superstring, each improvement on the approximated length of the superstring will get you better compression. Lastly, the paper showed that the GREEDY algorithm could be improved upon. Since the publication we were able to find 8 papers which improved the upper bound from $3n$ to, $2 \frac{8}{9}n$, $2 \frac{5}{6}n$, $2 \frac{50}{63}n$, $2 \frac{3}{4}n$, $2 \frac{2}{3}n$, $2.596n$ and finally $2 \frac{1}{2}n$ in 2000 \cite{sweedyk2000boldmath}.
 
 
 \newpage
-\subsection*{How the paper does what it does}
-Previous papers \cite{tarhio1988greedy} \cite{turner1989approximation} presented a greedy approximation algorithm that was conjectured to produce a superstring of length 2n, where n is the length of the optimal shortest common superstring.  The greedy approximation algorithm finds a pair of strings s and t in R, which have the longest mutual overlap amongst all possible pairs in R, and then removes s and t from R.  The overlapped string of s and t is then placed in R.  This is repeated until R contains one string, or no two strings have a non-empty overlap. \cite{tarhio1988greedy} \\
+\subsection*{Contribution}
+Previous papers \cite{tarhio1988greedy} \cite{turner1989approximation} presented a greedy approximation algorithm that was conjectured to produce a superstring of length $2n$, where $n$is the length of the optimal shortest common superstring.  The greedy approximation algorithm finds a pair of strings $s,t \in R$, which have the longest mutual overlap amongst all possible pairs in $R$, and then removes $s$ and $t$ from $R$.  The overlapped string of $s$ and $t$ is then placed in $R$.  This is repeated until $R$ contains one string, or no two strings have a non-empty overlap. \cite{tarhio1988greedy}
 
-Li \cite{li1990towards} proposes a different algorithm that provides the first provably good approximation algorithm for the shortest common superstring problem, with a bound of O(n logn).  The idea behind the algorithm is to merge large groups.  Each time two strings are mreged the algorithm tries to choose to merge two strings in a way that would make other strings in the set become substrings.  \\
+Li \cite{li1990towards} proposes a different algorithm that provides the first provably good approximation algorithm for the shortest common superstring problem, with a bound of $O(n\log n)$.  The idea behind the algorithm is to merge large groups.  Each time two strings are mreged the algorithm tries to choose to merge two strings in a way that would make other strings in the set become substrings.  
 
-Previous work failed to prove that an algorithm has the O(n) conjectured bound.  Blum, Avrim, et al. \cite{blum1991linear} present a new modified greedy approximation algorithm, TGREEDY, and prove that it produces superstrings of length at most 3n, where n is the length of the optimal superstring.  The shortest common superstring problem is first presented in the form of the traveling salesman problem on a weighted directed complete graph derived from a set of strings.  A modified greedy algorithm, MGREEDY, is then presented and proved to produce a superstring of length no more than 4n. \\
+Previous work failed to prove that an algorithm has the $O(n)$ conjectured bound.  Blum, Avrim, et al. \cite{blum1991linear} present a new modified greedy approximation algorithm, TGREEDY, and prove that it produces superstrings of length at most 3n, where n is the length of the optimal superstring.  The shortest common superstring problem is presented as both a minimzation problem with respect to prefix distance, and a maximization problem with respect to overlapse on a weighted directed complete graph derived from a set of strings. \cite{romero2004experimental}
 
-An algorithm, Concat-Cycles, optimally decomposes a directed weighted graph, previously described in the paper, in to cycles, such that each vertex is in one cycle.  From each cycle a string for this cycle is obtained, and the strings from each cycle are concatenated together, producing a superstring of length at most 4n.  This is then proven.  MGREEDY is a modified greedy algorithm that mimics the behavior of Concat-Cycles. \\
-MGREEDY has to initial sets, the empty set T and S 
+TGREEDY, is an improved version of a modified greedy approximation algorithm also presented in \cite{blum1991linear}, MGREEDY.  MGREEDY has a set of strings $S$ and an empty set $T$, and strings $s$ and $t$ are chosen from $S$, such that the overlap of $s$ and $t$ is maximized.  If $s$ equals $t$ then $s$ is moved from $S$ to $T$, otherwise $s$ and $t$ are removed from $S$ and replaced with the merge of $s$ and $t$.  This can be seen as choosing edges in the overlap graph, described previously in the paper.  Once $S$ is empty, the strings in $T$ can be concatenated together to output the superstring.
 
-TGREEDY, an improvement on MGREEDY is then presented.  TGREEDY works by running the MGREEDY algorithm, and then running GREEDY on the strings concatenated together in the last phase of MGREEDY.  This algorithm is then proven to produce superstrings of length at most 3n.  
+MGREEDY is like GREEDY but moves ``self-overlapping'' strings/cycles into a new set T rather than leaving them in S.  According to the authors this makes proving that the superstring produced by MGREEDY is no longer than $4n$, easier than proving it for GREEDY.  TGREEDY is an improvement on MGREEDY by running the original greedy algorithm on the strings in T rather than just concatenating them together.  The authors then prove TGREEDY produces superstrings that are no longer than $3n$.  
 
+GREEDY, the original greedy algorithm, is then shown to also produce superstrings of no longer than $4n$ by using the overlap graph.
 
-
-\cite{blum1991linear} relates shortest common superstring problem to the traveling salesman problem, as \cite{turner1989approximation} did.  Then \cite{blum1991linear} goes on to describe an algorithm concat-cycles which decomposes a weighted directed graph into cycles such that each vertex is in one cycle and the total weight of the cycles is minimized.  It is then proved that this algorithm produces a string of length at most 4*n.  MGREEDY, an algorithm that mimics the previously presented concat-cycles algorithm, is then presented.
-
-How does what \cite{li1990towards} proposes differ from algos in \cite{tarhio1988greedy}\cite{turner1989approximation}?
-
-
-This paper proposes concat cycles, which produces string of length at most 4*n
-then present mcgreedy which mimics concat-cycles
-
-mgreedy has a Set of strings S and an empty set T, just like \cite{li1990towards}
-then while S is not empty choose s and t in S, where overlap is maximized.  if s != t
-then remove them from S, and replace with merge(s,t).  if s = t, remove s from S and add it to T
-
-when S is empty output concat of strings in T
+In conclusion \cite{blum1991linear} has advanced previous work by proving the conjectured $O(n)$ bound on the length of superstrings produced by SCS greedy approximation algorithms, and demonstrating a new algorithm TGREEDY, that produces superstrings with length no longer than $3n$.
 
 \newpage
 {
