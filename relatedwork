@@ -1,0 +1,43 @@
+Related work.
+
+
+Work on the Shortest common superstring problem has been around since 1977. In 1980 Gallant et al. in \textit{On Finding Minimal length superstrings}\cite{gallant1980finding} set the basis for work on the shortest common superstring problem. 
+
+In Gallant, the researchers prove that given a set of strings $S$ and a positive length $K$ as well as an unbounded alphabet $\sum$ over those strings, that determining if $S$ has a superstring of length $K$ is NP-Complete. The authors do this by reducing to the \textit{Hamiltonian  path problem}. The Hamiltonian path problem is the problem where one determines in a directed or undirected graph whether there exists a path that visits each vertex only once. The Hamiltonian path problem was known to be NP-Complete so a reduction ultimately proves the completeness of the other problem \cite{michael1979computers}. Throughout all newer papers on the SCS problem each paper reduces the problem to the Hamiltonian path problem while using different tricks to reduce the SCS. 
+
+
+In 1988 Jorma Tarhio and Esko Ukkonen, authored \textit{A Greedy Approximation Algorithm for Constructing Common Superstrings} \cite{tarhio1988greedy}. Their paper developed a polynomial-time approximation algorithm that would construct a superstring within some \epsilon of the optimal solution. Their approxmiation algorithm is based off a greedy heuristic. At a high level their algorithm is given a set $S$ of strings over the alphabet $\sum$ select two strings which have the greatest mutual overlap. From there the algorithm merges the two strings and replaces the single combined string in $S$. An example would be the set $S = {aabb, bbbaaa, aaaa}$ The algorithm would select $bbbaaa$ and $aaaa$, merging and replacing so the set looks like $S = { aabb, bbbaaaa }$. The algorithm at finer detail is implemented using, once again, Hamiltonian Cycles. 
+
+
+
+@article{tarhio1988greedy,
+  title={A greedy approximation algorithm for constructing shortest common superstrings},
+  author={Tarhio, Jorma and Ukkonen, Esko},
+  journal={Theoretical Computer Science},
+  volume={57},
+  number={1},
+  pages={131--145},
+  year={1988},
+  publisher={Elsevier}
+}
+
+
+
+@article{gallant1980finding,
+  title={On finding minimal length superstrings},
+  author={Gallant, John and Maier, David and Astorer, James},
+  journal={Journal of Computer and System Sciences},
+  volume={20},
+  number={1},
+  pages={50--58},
+  year={1980},
+  publisher={Elsevier}
+}
+
+
+@article{michael1979computers,
+  title={Computers and intractability: a guide to the theory of NP-completeness},
+  author={Michael, R Garey and David, S Johnson},
+  journal={WH Freeman \& Co., San Francisco},
+  year={1979}
+}
