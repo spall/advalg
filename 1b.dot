@@ -1,0 +1,54 @@
+digraph G {
+a [label="zyzyzz"];
+b [label="xzyz"];
+c [label="zzyxz"];
+d [label="zzxzy"];
+e [label="zzwww"];
+
+
+a -> a [label="1"];
+c -> c [label="1"];
+d -> d [label="0"];
+e -> e [label="0"];
+b -> b [label="0"];
+
+##START A##
+b -> a [label="3"];
+a -> b [label="0"];
+
+a -> c [label="2"];
+c -> a [label="1"];
+
+a -> d [label="2"];
+d -> a [label="2"];
+
+a -> e [label="2"];
+e -> a [label="0"];
+##END A##
+
+##START B##
+b -> c [label="1"];
+c -> b [label="2"];
+
+b -> d [label="1"];
+d -> b [label="3"];
+
+b -> e [label="1"];
+e -> b [label="0"];
+##END B##
+
+##START C##
+
+c -> d [label="1"];
+d -> c [label="0"];
+
+c -> e [label="1"];
+e -> c [label="0"];
+##END C##
+
+##START D##
+d -> e [label="0"]
+e -> d [label="0"]
+
+
+}
