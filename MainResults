@@ -15,6 +15,16 @@ Let $S = {s_1 \ldot, s_m}$ be a set of m strings over the alphabet $\sum$. The p
 
 Throughout the analysis we talk about constructing graphs, unless otherwise specified we are constructing a overlap graph, or a distance graph:\\
 
+\textbf{Distance graph}
+The graph $G = (V,E,c)$ is an edge-weighted, complete directed graph. \\
+The set of verticies $V$ comes from the strings from $S$. That is each vertex in $V$ is one of the strings $s_1, ..., s_m \in S$.\\
+The costs $c$ between edges is denoted $c(v_i,v_j)$ where the cost is really just the prefix between strings in $S$, that is $c(v_i,v_j) = pref(s_i,s_j)$. In English the weights of edges is the distance between strings $s_i$ and $s_j$.\\
+Lastly, $E=V^2$.\\
+
+\textbf{Overlap graph}
+The graph $G = (V,E,c)$ is an edge-weighted, complete directed graph. \\
+Like above, $V \in S$ and $E=V^2$.\\
+The cost $c$ between edges is denoted like above, but the true cost is $c(v_i,v_j) = ov(s_i,s_j)$. In English, the weights of the edges is the overlaps between strings $s_i$ and $s_j$\\
 
 
 \subsection*{Results of the paper}\\
@@ -30,4 +40,14 @@ To prove GREEDY's approximation they first prove that an algorithm ``Concat-cycl
 
 \textbf{Concat-cycle algorithm}\\
 
-\textbf{A.} Given a set of strings $S$ reduce the set of strings to a 
+\textbf{A.} Given a set of strings $S$ reduce the set of strings to a distance graph $G$. \\
+\textbf{B.} Run a minimum weight assignment on $G$. The resulting set of cycles is $C$ where $C = {c_1, c_n}$\\
+\textbf{C.} Take the cycles from $C$ and ``unravel'' them into strings $s_i'$. $s_i'$ can be defined as the verticies $v_1 ... v_r ... v_1$. In English this is the string that is created by travelling through the verticies in a cycle until we've visited ever vertex in that cycle.\\
+\textbf{D.} for each string $s_i, s_{i+1}, ...$ concatenate them which gives us a string $SCS$.\\
+
+\textbf{Theorem}\\
+The algorithm concat cycles produces a string of length at most $4\ldot OPT(S)$\\\\
+
+
+
+
