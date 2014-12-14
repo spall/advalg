@@ -21,10 +21,25 @@ The set of verticies $V$ comes from the strings from $S$. That is each vertex in
 The costs $c$ between edges is denoted $c(v_i,v_j)$ where the cost is really just the prefix between strings in $S$, that is $c(v_i,v_j) = pref(s_i,s_j)$. In English the weights of edges is the distance between strings $s_i$ and $s_j$.\\
 Lastly, $E=V^2$.\\
 
+\begin{figure}[h]
+ \centering
+   \includegraphics[width=.4\textwidth]{distance.png}
+\end{figure}
+
+
+
+
+
 \textbf{Overlap graph}
 The graph $G = (V,E,c)$ is an edge-weighted, complete directed graph. \\
 Like above, $V \in S$ and $E=V^2$.\\
 The cost $c$ between edges is denoted like above, but the true cost is $c(v_i,v_j) = ov(s_i,s_j)$. In English, the weights of the edges is the overlaps between strings $s_i$ and $s_j$\\
+
+\begin{figure}[h]
+ \centering
+   \includegraphics[width=.4\textwidth]{overlap.png}
+\end{figure}
+
 
 
 \subsection*{Results of the paper}\\
