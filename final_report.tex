@@ -1,0 +1,67 @@
+\documentclass[letterpaper,11pt,titlepage]{article}
+\usepackage{epsfig,xspace,url}
+\usepackage{authblk}
+\usepackage[margin=.5in]{geometry}
+
+\iffalse 
+\addtolength{\oddsidemargin}{-.25in}
+\addtolength{\evensidemargin}{-.25in}
+\addtolength{\textwidth}{.5in}
+
+\addtolength{\topmargin}{-.25in}
+\addtolength{\textheight}{1in}
+
+\fi
+
+\title{Linear Approximation of Shortest Common Superstrings}
+\author[1]{Sarah Spall and Scott Bauer}
+
+\begin{document}
+\maketitle
+\newpage
+
+\subsection*{Introduction}
+A superstring of a set of strings $S$, is a string $w$, such that each string $s \in S$ is a substring
+of w.  The goal of shortest common superstring is to find the shortest possible $w$, such that each 
+string $s \in S$ is a substring of $w$. This problem has found application in both DNA sequencing 
+and data compression.  DNA is made up of four neucleotides, A, C, G, and T.  Sequencing molecules,
+determining a ``string'' over the alphabet of neucleotides, is/was an important part of biology.  To 
+create the sequence of a molecule, fragments (pieces of the molecule), are used to find the shortest
+common superstring of the fragments; this seems to work well in practice.  \cite{li1990towards}
+
+ 
+This problem has been shown to be NP-hard/NP-complete \cite{blum1991linear} \cite{johngallant1980}, 
+so research has focused on finding approximation algorithms for the problem.  The first approximation 
+algorithm seems to be a greedy algorithm discussed in Gallant (1982). This is now a commonly used greedy 
+algorithm, addressed in newer papers.  If we have a set $S$, the algorithm works by finding two strings $s$
+and $t$ in $S$, that have maximum overlap.  The overlap string $o$ is formed from $s$ and $t$, and $o$ is
+placed back in $S$.  Strings $s$ and $t$ are then removed from $S$.  This process is repeated until
+$S$ contains one string, or there is no non-empty overlap between strings in $S$.  This algorithm is later
+addressed in \cite{turner1989approximation}, \cite{tarhio1988greedy}, \cite{li1990towards}, and \cite{blum1991linear}.
+\cite{tarhio1988greedy} developed an algorithm that implemented the greedy approximation, and conjectured that 
+the length of the superstring produced by their algorithm is less than or equal to $2*len(OPT)$.  They were unable
+to prove this however, and it remained an open problem.  \cite{turner1989approximation} was also unable to prove
+the conjectured $2*len(OPT)$ upper bound of the greedy approximation.  
+
+
+\subsection{Related Work}
+Work on the Shortest common superstring problem has been around since 1977. In 1980 Gallant et al. in \textit{On Finding Minimal length superstrings}\cite{gallant1980finding} set the basis for work on the shortest common superstring problem. 
+
+In Gallant, the researchers prove that given a set of strings $S$ and a positive length $K$ as well as an unbounded alphabet $\sum$ over those strings, that determining if $S$ has a superstring of length $K$ is NP-Complete. The authors do this by reducing to the \textit{Hamiltonian  path problem}. The Hamiltonian path problem is the problem where one determines in a directed or undirected graph whether there exists a path that visits each vertex only once. The Hamiltonian path problem was known to be NP-Complete so a reduction ultimately proves the completeness of the other problem \cite{michael1979computers}. Throughout all newer papers on the SCS problem each paper reduces the problem to the Hamiltonian path problem while using different tricks to reduce the SCS.\\
+
+
+In 1988 Jorma Tarhio and Esko Ukkonen, authored \textit{A Greedy Approximation Algorithm for Constructing Common Superstrings} \cite{tarhio1988greedy}. Their paper developed a polynomial-time approximation algorithm that would construct a superstring within some $\epsilon$ of the optimal solution. Their approxmiation algorithm is based off a greedy heuristic. At a high level their algorithm is given a set $S$ of strings over the alphabet $\sum$ select two strings which have the greatest mutual overlap. From there the algorithm merges the two strings and replaces the single combined string in $S$. An example would be the set $S = {aabb, bbbaaa, aaaa}$ The algorithm would select $bbbaaa$ and $aaaa$, merging and replacing so the set looks like $S = { aabb, bbbaaaa }$. The algorithm at finer detail is implemented using, once again, Hamiltonian paths.The algorithm constructs a longest Hamiltonian path for weighted directed graph. The weight of the edges are the overlap between strings. The greedy heuristic holds on this graph as it chooses the edges with the maximum weight. Although their algorithm constructs a solution they do not prove the lower bound of the algorithm and leave it open for future work. \\
+
+Aside from compression of strings in computation, the SCS problem has relevance in the biology field. In \textit{Towards a DNA Sequencing Theory}, Ming Li explains the relevance of SCS in terms of DNA sequencing (in 1990). The idea of sequencing DNA is an important one to understand the basis of life. Cures for diseases, viruses, among other things all come from information that is derived from sequencing DNA. At a high level DNA strands can be encoded from a set of nucleotides $A, T, C, G$. This is important information. Using this reduction scientists can reduce DNA to a string which can then be used for the SCS problem. Using the SCS problem on this DNA string was very relevant in the early 90's due to the limited technology of sequencind DNA. Only around 500 base pairs could be sequenced at a time. If A scientist can get the most out of those 500 pairs then their research can continue. The paper provides an algorithm in which they argue it constructs a superstring of length $O(nlogn)$ where n is the smallest possible substring, ie the optimal soltuion. The algorithm provided in the paper takes the base greedy approximation algorithm, but instead of greedily choosing two strings which have the greatest overlap, the algorithm chooses two strings such that their merge will make it so every other group of strings has some overlap. That is he tries to maximize the number of strings in which the merge will overlap with. They call this technique group merging.\\
+
+
+\newpage
+
+{
+  %\footnotesize 
+  \small 
+  \bibliographystyle{acm}
+  \bibliography{biblio}
+}
+
+\end{document}
