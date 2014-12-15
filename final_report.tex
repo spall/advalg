@@ -43,6 +43,34 @@ the length of the superstring produced by their algorithm is less than or equal 
 to prove this however, and it remained an open problem.  \cite{turner1989approximation} was also unable to prove
 the conjectured $2*len(OPT)$ upper bound of the greedy approximation.  
 
+\subsection*{Notational preliminaries}\\
+
+
+Let $S = {s_1 \ldot, s_m}$ be a set of m strings over the alphabet $\sum$. The paper uses $OPT(S)$ which denotes the length of the shortest common superstring for the set $S$. If given two strings $s$ and $t$ the term $ov(s,t)$ denotes the amount of overlap between $s$ and $t$. For example, if $s = uv$ and $t = vw$ then $ov(s,t) = |v|$. The paper uses the term $pref(s,t)$ to denote the prefix of $s$ with respect to $t$, that is $pref(s,t) = u$. Lastly, $d(s,t)$ denotes the distance from $s$ to $t$. That is, $d(s,t) = |u|$. Finally, let $SCS$ denote the shortest common superstring for some algorithm. For a set of strings $S = {s_1, ..., s_m}$ where each string is unique, and any $s_i \in S$ is a sub-string of any other $s_k in S$ then the $SCS$ is trivially the concatenation of strings $SCS = s_1s_2...s_m$. There are these notions $first(SCS)$ and $last(SCS)$ which denote the first string in $SCS$ is the first string in the set $S$, and $last(SCS)$ is the last string in $SCS$. That is $first(SCS) = s_1$ and $last(SCS) = s_m$. \\
+
+Throughout the analysis we talk about constructing graphs, unless otherwise specified we are constructing a overlap graph, or a distance graph:\\
+
+\textbf{Distance graph}
+The graph $G = (V,E,c)$ is an edge-weighted, complete directed graph. \\
+The set of vertices $V$ comes from the strings from $S$. That is each vertex in $V$ is one of the strings $s_1, ..., s_m \in S$.\\
+The costs $c$ between edges is denoted $c(v_i,v_j)$ where the cost is really just the prefix between strings in $S$, that is $c(v_i,v_j) = pref(s_i,s_j)$. In English the weights of edges is the distance between strings $s_i$ and $s_j$.\\
+Lastly, $E=V^2$.\\
+
+\begin{figure}[h]
+ \centering
+   \includegraphics[width=.4\textwidth]{distance.png}
+\end{figure}
+
+
+\textbf{Overlap graph}
+The graph $G = (V,E,c)$ is an edge-weighted, complete directed graph. \\
+Like above, $V \in S$ and $E=V^2$.\\
+The cost $c$ between edges is denoted like above, but the true cost is $c(v_i,v_j) = ov(s_i,s_j)$. In English, the weights of the edges is the overlaps between strings $s_i$ and $s_j$\\
+
+\begin{figure}[h]
+ \centering
+   \includegraphics[width=.4\textwidth]{overlap.png}
+\end{figure}
 
 \subsection{Related Work}
 Work on the Shortest common superstring problem has been around since 1977. In 1980 Gallant et al. in \textit{On Finding Minimal length superstrings}\cite{gallant1980finding} set the basis for work on the shortest common superstring problem. 
@@ -78,8 +106,57 @@ Turner then presents 3 different approximation algorithms for SCS. The first app
 
 Turner then relates SCS to the path version of the traveling salesman problem; This is similar to what is done in Blum et al. ()  This is an asymmetric case of the traveling salesman problem where the triangle inequality holds, meaning it is not NP-hard to find an approximation algorithm.  
 
-\subsection{Main results}
+\subsection{Main Results}
 
+\subsection*{Results of the paper}\\
+
+The papers that set up greedy before this paper conjectured that GREEDY could be $ |GREEDY_{SCS}| \leq |2OPT(S)|$. We will describe how the authors proved that the upperbound string for a slightly modified GREEDY is actually $ |GREEDY_{SCS}| \leq |4OPT|(S)$.\\\\
+
+
+\textbf{$4 \ldot OPT(S)$ upper bound for GREEDY}\\\\
+
+When we take the SCS problem and reduce it, we end up with a set of strings $S$ which can be represented as a weighted graph $G$. This opens up a slew of graph algorithms that previously wouldn't have worked without the reduction. The algorithm works by finding a vertex disjoint cycle cover, where each vertex in the graph is contained in at least one cycle. In order to get a vertex disjoint cycle cover, the authors use a polynomial-time algorithm for the assignment problem. The assignment problem is the problem of finding a maximal or minimal weight matching between vertices in a weighted bipartite graph. To prove that the algorithm finds a SCS of length at most $4 \ldot OPT(S)$ they prove that the the assignment algorithm finds some optimial weight matching on graph $G$, and when the cycles in $G$ are found and unraveled they are at most length 4 of the optimal solution.
+
+To prove GREEDY's approximation they first prove that an algorithm ``Concat-cycles'' produces a string at most 4 of the optimal, then show that GREEDY mimics concat-cycles.\\
+
+\textbf{Concat-cycle algorithm}\\\\
+
+\textbf{A.} Given a set of strings $S$ reduce the set of strings to a distance graph $G$. \\
+\textbf{B.} Run a minimum weight assignment on $G$. The resulting set of cycles is $C$ where $C = {c_1, c_n}$\\
+\textbf{C.} Take the cycles from $C$ and ``unravel'' them into strings $s_i'$. $s_i'$ can be defined as the vertices $v_1 ... v_r ... v_1$. In English this is the string that is created by traveling through the vertices in a cycle until we've visited ever vertex in that cycle.\\
+\textbf{D.} for each string $s_i, s_{i+1}, ...$ concatenate them which gives us a string $SCS$.\\
+
+\textbf{Theorem}\\
+The algorithm concat cycles produces a string of length at most $4\ldot OPT(S)$\\\\
+
+\textbf{Explanation of the proof}\\
+
+The proof works by stating that since an optimal assignment on the distance graph $G$ produces a set of cycles $C$, if we sum the weight of the cycles it is less than or equal to OPT(S). That is $C = {c_1, ..., c_m}$ then $\sum_{i=i}^m w(c_i) \leq OPT(S)$.\\
+This makes sense because the weights of the edges are just $|s_i| - ov(s_i,s_j)$. That is, the weight of the edge from $v_i$ to $v_j$ is just the length of $s_i$ minus the overlap it has with $s_j$. We will show that the sum of these is less or equal to $OPT(S)$.\\
+
+In a substring free set $S$ the distance graph will contain weights between edges of $|s_i|$. That is the distance between vertices will be the total length of the string $s_i$. In English, to get from vertex $v_i$ to $v_j$ you must travel over the total length of the string $s_i$. In this graph, the algorithm calculates a minimum assignment which gives us a set $C$, where the  $\sum_{i=0}^m w(c_i) \eq \sum_{i=0}^m |s_i| \eq OPT(S)$.\\
+
+When the algorithm takes the longest string $l_i$ from the cycle $c_i$ and merges it with all the other longest strings in each cycle we end up with overlap between strings at most $2\sum_{i=0}^m w_i$. When the algorithm finishes merging all strings together we have a resulting string with a minimal length of $\lsum_{i=1}^m l_i - 2wi$. [TODO explain how they pull numbers out of thin air]
+
+We will explain now how the paper shows that the modified GREEDY algorithm mimics concat-cycles and thus has the same upperbound SCS length.\\
+
+Unlike Concat-cycles, the modified GREEDY takes an overlap graph $G$ and computes the maximum overlap. The algorithm works by repeatedly selecting the maximum overlap between verticies. The algorithm continues by constructing and joining paths until disjoint cycles emerge such that all vertices in $G$ are covered. That is it selects an edge between verticies and merges them into one vertex. The assignment of covers $C$ is an optimal assignment, which they prove in a contrdadiciton. They say that if there exists an edge with a maximum overlap it would have to be contained in the algorithms $C$. Since this is an optimal assignment it mimics the concat-cycles which also creates an optimal assignment. Once the assignment is complete they simply unroll the cycles and concatenate strings together. 
+
+\textbf{$3 \ldot OPT(S)$ upper bound for TGREEDY}\\\\
+
+In the modified GREEDY algorithm the final step was to simply concatenate strings until only one string remained, the SCS. The authors propose that simply concatenating the strings is what is limiting the algorithm. They propose instead of simply concatenating strings together you run the original GREEDY algorithm on the strings. \\
+
+\textbf{Theorem} \\\\
+TGREEDY produces a superstring of at most $3 \ldot OPT(S)$\\
+
+\textbf{Explanation of the proof}\\
+
+We take the set of strings $O$ that have a self overlap that the modified GREEDY algorithm produced and the matching $C$. 
+
+
+\subsection{sarah}
+
+Blum et al. (1991) approached approximation algorithms for SCS from a different perspective than previous papers, by dealing with a minimization problem on the ``distance'' graph.  Blum et al. defines a graph $G_s = (V, E, d)$ that has $m$ verticies $V$, and $m^2$ edges $E = {(i,j): 1 \leq i, j \leq m}$.  And the weight function is $d(,)$: edge $(i,j)$ has weight $d(i,j) = d(s_i, s_j)$.  This is the distance graph, and is similar to the Turner one mentioned in related work.  Using this graph, Blum proves a $4*OPT(S)$ bound, for a modified greedy algorithm, and then a $3*OPT(S)$ bound for another modified greedy algorithm.  The previous best proof of an approximation guarantee with respect to length was Li and a bound of $n\log n$, where n is the length of the shortest common superstring.  
 
 \newpage
 
