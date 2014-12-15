@@ -30,8 +30,8 @@ create the sequence of a molecule, fragments (pieces of the molecule), are used 
 common superstring of the fragments; this seems to work well in practice.  \cite{li1990towards}
 
  
-This problem has been shown to be NP-hard/NP-complete \cite{blum1991linear} \cite{johngallant1980}, 
-so research has focused on finding approximation algorithms for the problem.  The first approximation 
+The optimizaton version of this problem has been shown to be NP-hard \cite{blum1991linear} \cite{johngallant1980}, 
+so research has focused on finding approximation algorithms.  The first approximation 
 algorithm seems to be a greedy algorithm discussed in Gallant (1982). This is now a commonly used greedy 
 algorithm, addressed in newer papers.  If we have a set $S$, the algorithm works by finding two strings $s$
 and $t$ in $S$, that have maximum overlap.  The overlap string $o$ is formed from $s$ and $t$, and $o$ is
@@ -41,7 +41,7 @@ addressed in \cite{turner1989approximation}, \cite{tarhio1988greedy}, \cite{li19
 \cite{tarhio1988greedy} developed an algorithm that implemented the greedy approximation, and conjectured that 
 the length of the superstring produced by their algorithm is less than or equal to $2*len(OPT)$.  They were unable
 to prove this however, and it remained an open problem.  \cite{turner1989approximation} was also unable to prove
-the conjectured $2*len(OPT)$ upper bound of the greedy approximation.  
+the conjectured $2*len(OPT)$ upper bound of the greedy approximation.  The first proven bound 
 
 \subsection*{Notational preliminaries}\\
 
@@ -154,9 +154,33 @@ TGREEDY produces a superstring of at most $3 \ldot OPT(S)$\\
 We take the set of strings $O$ that have a self overlap that the modified GREEDY algorithm produced and the matching $C$. 
 
 
+\textbf{The superstring problem is MAX SNP-hard}
+
+As the final result of the paper the authors show that the superstring problem is MAX SNP-hard, by reducing TSP(1,2) to the superstring problem; TSP(1,2) was shown to be MAX SNP-hard in \cite{papadimitriou1993}.  Which, although published after Blum et al. was cited by Blum et al. that TSP(1,2) had been shown to be MAX SNP-hard.  MAX SNP is a class of optimization problems, and it is known that every problem in this class can be approximated within some constant factor.  \\ \\
+
+TSP(1,2) is the special case of the traveling salesman problem where the distances are either $1$ or $2$.  The instance of TSP(1,2) considered in this paper is the instance where each edge in the graph $H$ has distance $1$, and each edge not in the graph has distance $2$.  There is the additional restriction that $H$ have a bounded degree $D$ (the precise bound is not important).  \cite{papadimitriou1993} showed TSp(1,2) to be MAX SNP-hard even for this restricted version.  
+
 \subsection{sarah}
 
-Blum et al. (1991) approached approximation algorithms for SCS from a different perspective than previous papers, by dealing with a minimization problem on the ``distance'' graph.  Blum et al. defines a graph $G_s = (V, E, d)$ that has $m$ verticies $V$, and $m^2$ edges $E = {(i,j): 1 \leq i, j \leq m}$.  And the weight function is $d(,)$: edge $(i,j)$ has weight $d(i,j) = d(s_i, s_j)$.  This is the distance graph, and is similar to the Turner one mentioned in related work.  Using this graph, Blum proves a $4*OPT(S)$ bound, for a modified greedy algorithm, and then a $3*OPT(S)$ bound for another modified greedy algorithm.  The previous best proof of an approximation guarantee with respect to length was Li and a bound of $n\log n$, where n is the length of the shortest common superstring.  
+Blum et al. (1991) approached approximation algorithms for SCS from a different perspective than previous papers, by dealing with a minimization problem on the ``distance'' graph.  Blum et al. defines a graph $G_s = (V, E, d)$ that has $m$ verticies $V$, and $m^2$ edges $E = {(i,j): 1 \leq i, j \leq m}$.  And the weight function is $d(,)$: edge $(i,j)$ has weight $d(i,j) = d(s_i, s_j)$.  This is the distance graph, and is similar to the Turner one mentioned in related work.  Using this graph, Blum proves a $4*OPT(S)$ bound, for a modified greedy algorithm, and then a $3*OPT(S)$ bound for another modified greedy algorithm.  The previous best proof of an approximation guarantee with respect to length was Li and a bound of $n\log n$, where n is the length of the shortest common superstring.  \\ \\
+
+$H$ is a directed graph, hardness holds for both directed and undirected, with a bounded degree $D$ specifying an instance of TSP(1,2).  For every vertex $v$ in $H$ there are two characters, $v$ and $v'$, and an additional character $#$, so for each vertex $v$ there is the string $v#v'$; This string is called the ``connector'' for v.  For each vertex $v$ in $H$, loop through the edges leaving $v$ in an arbitrary cyclic order 
+
+
+
+
+
+
+\subsection{Conclusion}
+
+Improvements/Followups.
+
+
+There have been a large amount of improvements and followups on the SCS problem. The paper proved that their algorithm had an upper bound minimum string length of $3n$, where $n$ is the optimal length. Successive papers throughout the years improved the upper bounds: Teng and Yao improved the bound to $2 \frac{8}{9} n$; Czumaj et al. by $2 \frac{5}{6} n$; Kosaraju, Stien and Park by $2 \frac{50}{63} n$; Stein and Armen by $2 \frac{3}{4} n$, then by $2 \frac{2}{3} n$; Breslauer et al. by 2.596 and lastly $2.5 n$ by Sweedyk \cite{sweedyk2000boldmath}. We will quickly describe what Sweedyk does.\\
+
+The previous algorithms, including the one in our paper constructed a directed graph $G$ where each edge in the graph has a positive weight. The weight denotes the length. The algorithms would then construct a cycle cover on the graph. The cycle cover would be a minimum-length cycle cover. The set of cycle-covers were the strings $S$ that would be concatenated together to form the superstring.\\
+
+The algorithm described in the $2\half$ paper worked by constructing a graph $G$, like above and constructing a minimal-length cycle-cover. Where it differs from previous algorithms is the algorithm then takes the set of cycle-covers and attempts to merge each cycle with another cycle. Once complete they follow above and remove each cycle and unravel it to create a string. Once all cycles are unraveled from the cycles they concatenate and have a superstring. The authors argue that their algorithm can be improved upon up to $2OPT$ and hint at working on a proof for showing that a modified version will acheive $2\frac{1}{3} OPT$\\
 
 \newpage
 
