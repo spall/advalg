@@ -47,13 +47,13 @@ The cost $c$ between edges is denoted like above, but the true cost is $c(v_i,v_
 The papers that set up greedy before this paper conjectured that GREEDY could be $ |GREEDY_{SCS}| \leq |2OPT(S)|$. We will describe how the authors proved that the upperbound string for a slightly modified GREEDY is actually $ |GREEDY_{SCS}| \leq |4OPT|(S)$.\\\\
 
 
-\textbf{$4 \ldot OPT(S)$ upper bound for GREEDY}\\
+\textbf{$4 \ldot OPT(S)$ upper bound for GREEDY}\\\\
 
 When we take the SCS problem and reduce it, we end up with a set of strings $S$ which can be represented as a weighted graph $G$. This opens up a slew of graph algorithms that previously wouldn't have worked without the reduction. The algorithm works by finding a vertex disjoint cycle cover, where each vertex in the graph is contained in at least one cycle. In order to get a vertex disjoint cycle cover, the authors use a polynomial-time algorithm for the assignment problem. The assignment problem is the problem of finding a maximal or minimal weight macthing between verticies in a weighted bipartite graph. To prove that the algorithm finds a SCS of length at most $4 \ldot OPT(S)$ they prove that the the assignment algorithm finds some optimial weight matching on graph $G$, and when the cycles in $G$ are found and unraveled they are at most length 4 of the optimal solution.
 
 To prove GREEDY's approximation they first prove that an algorithm ``Concat-cycles'' produces a string at most 4 of the optimal, then show that GREEDY mimics concat-cycles.\\
 
-\textbf{Concat-cycle algorithm}\\
+\textbf{Concat-cycle algorithm}\\\\
 
 \textbf{A.} Given a set of strings $S$ reduce the set of strings to a distance graph $G$. \\
 \textbf{B.} Run a minimum weight assignment on $G$. The resulting set of cycles is $C$ where $C = {c_1, c_n}$\\
@@ -62,6 +62,22 @@ To prove GREEDY's approximation they first prove that an algorithm ``Concat-cycl
 
 \textbf{Theorem}\\
 The algorithm concat cycles produces a string of length at most $4\ldot OPT(S)$\\\\
+
+\textbf{Explanation of the proof}\\
+
+The proof works by stating that since an optimal assignment on the distance graph $G$ produces a set of cycles $C$, if we sum the weight of the cyles it is less than or equal to OPT(S). That is $C = {c_1, ..., c_m}$ then $\sum_{i=i}^m w(c_i) \leq OPT(S)$.\\
+This makes sense becaue the weights of the edges are just $|s_i| - ov(s_i,s_j)$. That is, the weight of the edge from $v_i$ to $v_j$ is just the legnth of $s_i$ minus the overlap it has with $s_j$. We will show that the sum of these is less or equal to $OPT(S)$.\\
+
+In a substring free set $S$ the distance graph will contain weights between edges of $|s_i|$. That is the distance between verticies will be the total length of the string $s_i$. In English, to get from vertex $v_i$ to $v_j$ you must travel over the total lenght of the string $s_i$. In this graph, the algorithm calculates a minimum assignment which gives us a set $C$, where the  $\sum_{i=0}^m w(c_i) \eq \sum_{i=0}^m |s_i| \eq OPT(S)$.
+
+
+
+We will explain now how the paper shows that the modified GREEDY algorithm mimics concat-cycles and thus has the same upperbound SCS length.\\
+
+
+
+
+
 
 
 
