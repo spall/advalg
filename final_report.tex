@@ -158,24 +158,27 @@ TGREEDY produces a superstring of at most $3 \ldots OPT(S)$\\
 We take the set of strings $O$ that have a self overlap that the modified GREEDY algorithm produced and the matching $C$. 
 
 
+\textbf{Theorem}\\
+GREEDY produces a string of length at most $4 * OPT(S)$
+
+\textbf{Explanation of proof}
+
+If we sort the edges of the overlap grpah $G$ in descending order, GREEDY operates by iterating over the list and determining whether the slected edge should be included in the SCS. We can label edges in this list with the terms ``better'' and ``worse''. An edge is determined to be better if it has a larger overlap than all others. An edge is determined to be worse has a smaller overlap than all others. Obviously, a better edge will have $\geq$ overlap to a worse edge. The paper also uses the term ``dominate'' to mean an edge $f$ has more overlap than an edge $e$ where $f$ shares a head or tail with $e$. GREEDY can choose not to include an edge under two conditions. Condition one is it will disclude an edge if we have previously included an edge that dominates the edge it's trying to merge. Lastly, it will not include an edge that creates a cycle. In this proof they use another term ``bad back edges'' which means an edge that would create a cycle if we were to choose it. You can think of a bad back edge as a string with more overlap with itself than it does with the string GREEDY is attempting to merge it with.\\
+
+If we take two bad back edges they are either disjoint or one is contained in the other. If the two intervals are contained in each other we denote the minimal innermost string of this containment as a ``culprit string''. Between two successive culprit strings is a path, which is referred as a ``weak link''. If we remove weak links we end up with disjoint ``blocks'' which are just paths. Each block has a nonempty cuplprit as the middle segment along with a left and right extension, which may or may not exist.
+
+Given a set $S_m$ where $S_m$ consits of the greedy edges together with the back edge of the culprit. When we apply the algorithm modified GREEDY to $S_m$ it will construct us an assignment $C_m$ that is an optimal assignment for $S_m$. We now create two graphs $G_l$ which is the left/middle portion of a block and $G_r$ which is the right/middle portion. $l_l$ and $l_r$ is denoted as the sum of the left and right extensions and $l_c$ to be the sum of the centers, and $o_w$ to be the sum of overlaps. They find optimal assignments on these two graphs, $M_l$ and $M_r$. With these two assignments they show that they can bound overlap but during the calculation some edges are double counted. In order to stop this double count and prove the upper bound they figure out how to get adjacent edges to dominate each other which reduces the double counting. Ultimately the show some math which we omit because we cant really explain it without copy pasting it here which proves the upper bound $4 * OPT(S)$.
+
+
+
 \textbf{The superstring problem is MAX SNP-hard}
 
 As the final result of the paper the authors show that the superstring problem is MAX SNP-hard, by reducing TSP(1,2) to the superstring problem; TSP(1,2) was shown to be MAX SNP-hard in \cite{papadimitriou1993}.  Which, although published after Blum et al. was cited by Blum et al. that TSP(1,2) had been shown to be MAX SNP-hard.  MAX SNP is a class of optimization problems, and it is known that every problem in this class can be approximated within some constant factor.  \\ \\
 
 TSP(1,2) is the special case of the traveling salesman problem where the distances are either $1$ or $2$.  The instance of TSP(1,2) considered in this paper is the instance where each edge in the graph $H$ has distance $1$, and each edge not in the graph has distance $2$.  There is the additional restriction that $H$ have a bounded degree $D$ (the precise bound is not important).  \cite{papadimitriou1993} showed TSp(1,2) to be MAX SNP-hard even for this restricted version.   \\ \\
 
-$H$ is a directed graph, hardness holds for both directed and undirected, with a bounded degree $D$ specifying an instance of TSP(1,2).  For every vertex $v$ in $H$ there are two characters, $v$ and $v'$, and an additional character $\#$, so for each vertex $v$ there is the string $v\#v'$; This string is called the ``connector'' for v.  For each vertex $v$ in $H$, loop through the edges leaving $v$ in an arbitrary cyclic order: $(v, w_o),...,(v,w_{D-1})(*)$.  For the $i$th edge out of $v$ there is string $p_i(v) = v'w_{i-1}v'$.  A graph $G_S$, as described earlier in the paper, is a distance-weighted graph, and is constructed for the set of strings $p$.  If the subgraph of $G_S$, $G_2$ with only edges of weight (2), there is a component for each vertex $v$ in $H$.  This is because and two strings $p_i(v)$, will have distance of $2$ from eachother, and therefore the vertices from $p_i(v)$ will form a cycle in in their component in $G_2$.  In each component in $G_2$, there is also a ``connector'' vertex with an edge to each vertex $p_i(v)$.  \\ \\
-For the subgraph $G_2$, they show a standard superstring corresponds to the ordering of vertices $v_1,v_2, \ldots,v_n$.  For $H$, 
-
-
-\subsection{sarah}
-
-Blum et al. (1991) approached approximation algorithms for SCS from a different perspective than previous papers, by dealing with a minimization problem on the ``distance'' graph.  Blum et al. defines a graph $G_s = (V, E, d)$ that has $m$ verticies $V$, and $m^2$ edges $E = {(i,j): 1 \leq i, j \leq m}$.  And the weight function is $d(,)$: edge $(i,j)$ has weight $d(i,j) = d(s_i, s_j)$.  This is the distance graph, and is similar to the Turner one mentioned in related work.  Using this graph, Blum proves a $4*OPT(S)$ bound, for a modified greedy algorithm, and then a $3*OPT(S)$ bound for another modified greedy algorithm.  The previous best proof of an approximation guarantee with respect to length was Li and a bound of $n\log n$, where n is the length of the shortest common superstring.  \\ \\
-
- 
-
-
-
+$H$ is a directed graph, hardness holds for both directed and undirected, with a bounded degree $D$ specifying an instance of TSP(1,2).  For every vertex $v$ in $H$ there are two characters, $v$ and $v'$, and an additional character $\#$, so for each vertex $v$ there is the string $v\#v'$; This string is called the ``connector'' for v.  For each vertex $v$ in $H$, loop through the edges leaving $v$ in an arbitrary cyclic order: $(v, w_o),...,(v,w_{d-1})(*)$.  For the $i$th edge out of $v$ there is string $p_i(v) = v'w_{i-1}v'$.  A graph $G_S$, as described earlier in the paper, is a distance-weighted graph, and is constructed for the set of strings $p$.  If the subgraph of $G_S$, $G_2$ with only edges of weight (2), there is a component for each vertex $v$ in $H$.  This is because and two strings $p_i(v)$, will have distance of $2$ from eachother, and therefore the vertices from $p_i(v)$ will form a cycle in in their component in $G_2$.  In each component in $G_2$, there is also a ``connector'' vertex with an edge to each vertex $p_i(v)$.  \\ \\
+For the subgraph $G_2$, they show a standard superstring corresponds to the ordering of vertices $v_1,v_2, \ldots,v_n$.  For $H$, they assume that there is an edge from vertex $v_i$ to $v_j$ such that there is a weight of (3) on the edge from the last p string to the next connector $v_{i+1}\#v'_{i+1}$.  Now suppose it takes adding k edges to $H$ to get a Hamiltonian path v_1, v_2, ... , v_{n-1}, v_n.  Then they are able to construct a corresponding Standard superstring, of length $\sum_{i=1}^n (2 + 2d_i + 1) + k + 3 = 2n + 2m + k$ where $d_i$ is the out-degree of $v_i$. 
 
 \textbf{Theorem}\\
 GREEDY produces a string of length at most $4 * OPT(S)$
