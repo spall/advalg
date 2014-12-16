@@ -91,14 +91,14 @@ Three different approximation algorithms for SCS are then presented in the paper
 
 \subsection*{Main Results}
 
-\subsection*{$4 \ldots OPT(S)$ upper bound for MGREEDY}\\
+\subsection*{$4 \ldots OPT(S)$ upper bound for MGREEDY}
 
 Reducing the SCS problem to a weighted directed  graph G, we end up with a set of strings $S$ which can be represented as a distance graph. Doing so opens the potential of finding a common superstring using existing solutions for Hamiltonian path problems. The algorithm works by finding a vertex disjoint cycle cover, where each vertex in the graph is contained in one cycle. In order to get a vertex disjoint cycle cover, the authors use a polynomial-time algorithm for the assignment problem. The assignment problem is the problem of finding a maximal or minimal weight matching between vertices in a weighted bipartite graph. To prove that the algorithm finds a SCS of length at most $4 * OPT(S)$ they prove that the the assignment algorithm finds some optimal weight matching on graph $G$. When the cycles in $G$ are found and unraveled they are at most length 4 of the optimal solution. To prove MGREEDY's approximation they first prove that an algorithm ``Concat-cycles'' produces a string at most 4 of the optimal, then show that MGREEDY mimics concat-cycles.
 
 \textbf{Concat-cycle algorithm}\\
 
 \textbf{A.} Given a set of strings $S$ reduce the set of strings to a distance graph $G$. \\
-\textbf{B.} Run a minimum weight assignment on $G$. The resulting set of cycles is $C$ where $C = \{c_1, \ldot, c_n\}$\\
+\textbf{B.} Run a minimum weight assignment on $G$. The resulting set of cycles is $C$ where $C = \{c_1, ..., c_n\}$\\
 \textbf{C.} For each cycle $c_i \in C$,  ``unravel'' the cycle into strings $Ps_i'$. $s_i'$ can be defined as the vertices $v_1 ... v_r ... v_1$. This means that $s_i$ represents the  string that is created by traveling through the vertices in a cycle until we've visited ever vertex in that cycle.\\
 \textbf{D.} Now, for each string that we created from cycles, concatenate them together which results in a superstring.\\
 
@@ -109,13 +109,13 @@ The algorithm concat cycles produces a string of length at most $4 * OPT(S)$\\
 
 The proof works by stating that since an optimal assignment on the distance graph $G$ produces a set of cycles $C$, if we sum the weight of the cycles it is less than or equal to OPT(S). That is $C = {c_1, ..., c_m}$ then $\sum_{i=i}^m w(c_i) \leq OPT(S)$. This makes sense because the weights of the edges are just $|s_i| - ov(s_i,s_j)$. That is, the weight of the edge from $v_i$ to $v_j$ is just the length of $s_i$ minus the overlap it has with $s_j$. We will show that the sum of these is less or equal to $OPT(S)$.
 
-The algorithm takes the longest string $l_i$ from the cycle $c_i$ and merges it with all the other longest strings in each cycle. We end up with overlap between strings at most $2*\sum_{i=0}^m w_i$. When the algorithm finishes merging all strings together we have a resulting string with a minimal length of $\sum_{i=1}^m l_i - 2wi$.  
+The algorithm takes the longest string $l_i$ from the cycle $c_i$ and merges it with all the other longest strings in each cycle. We end up with overlap between strings at most $2*\sum_{i=0}^m w_i$. When the algorithm finishes merging all strings together we have a resulting string with a minimal length of $\sum_{i=1}^m l_i - 2wi$.  They show that $OPT(S)$ is greater than or equal to the two previous summations. When they unroll the cycles and get a string $s'$ they show that $|s'| \leq \sum_{i=1}^m l_i + w+i$. When you do a replacement in the equation you get, $\sum_{i=1}^m l_i + 2w_i + \sum_{i=1}^m 3wi$ which when we replace again: $\leq OPT(S) + 3 * OPT(S) = 4 * OPT(S)$\\
 
 We will explain now how the paper shows that the MGREEDY algorithm mimics concat-cycles and thus has the same upper bound SCS length.
 
 Unlike Concat-cycles, MGREEDY operates on the overlap graph $G$, rather than the distance graph, and computes the maximum overlap. The algorithm works by repeatedly selecting an edge from a list of sorted edges, from highest to lowest. And deciding for each edge whether or not to include it. The algorithm continues by constructing and joining paths until disjoint cycles emerge such that all vertices in $G$ are covered. That is it selects an edge between vertices and merges them into one vertex. The assignment of covers $C$ is an optimal assignment, which they prove through a contradiction. They say that if there exists an edge with a maximum overlap it would have to be contained in the algorithms $C$. Since this is an optimal assignment it mimics the concat-cycles which also creates an optimal assignment. Once the assignment is complete they simply unroll the cycles and concatenate strings together. 
 
-\subsection*{$3 \ldots OPT(S)$ upper bound for TGREEDY}\\
+\subsection*{$3 \ldots OPT(S)$ upper bound for TGREEDY}
 
 In the modified GREEDY algorithm the final step was to simply concatenate strings until only one string remained, the SCS. The authors propose that simply concatenating the strings is what is limiting the algorithm. They propose instead of simply concatenating strings together you run the original GREEDY algorithm on the strings. \\
 
