@@ -29,7 +29,7 @@ string $s \in S$ is a substring of $w$. This problem has found application in bo
 and data compression.  DNA is made up of four neucleotides, {A, C, G, and T}.  Sequencing molecules also known as,
 determining a ``string'' over the alphabet of neucleotides, is an important part of biology. In practice, biochemist use SCS to sequence molecules, by finding the SCS for the fragments.
 
-The optimization version of this problem has been shown to be NP-hard \cite{blum1991linear} \cite{gallant1980}, 
+The optimization version of this problem has been shown to be NP-hard \cite{blum1991linear} \cite{gallant1980finding}, 
 so research has focused on finding approximation algorithms.  The first approximation 
 algorithm was a greedy algorithm discussed in Gallant (1982). This algorithm because a commonly used approximation algorithm and is newer papers.  The GREEDY algorithm works for a set of strings $S$ by finding two strings $s,t \in S$, that have maximum overlap.  The overlap string is formed from $s$ and $t$, and  is placed back in $S$.  Strings $s$ and $t$ are then removed from $S$.  This process is repeated until
 $S$ contains one string, or there is no non-empty overlap between strings in $S$.  This algorithm is later
@@ -37,7 +37,7 @@ addressed in \cite{turner1989approximation}, \cite{tarhio1988greedy}, \cite{li19
 \cite{tarhio1988greedy} developed an algorithm implementing the greedy approximation, and conjectured that 
 the length of the superstring produced by the GREEDY algorithm is less than or equal to $2*len(OPT)$, where $OPT$ is the length of the optimal shortest common superstring of $S$.  They were unable
 to prove the upper bound, and it remained an open problem.  \cite{turner1989approximation} was also unable to prove
-the conjectured $2*len(OPT)$ upper bound of the greedy approximation.  The first proven bound 
+the conjectured $2*len(OPT)$ upper bound of the greedy approximation.  The first proven bound was from Li (1990) \cite{li1990towards}, who showed an upper bound of $O(n\log n)$, on an approximation algorithm for the shortest common superstring, where $n$ is the length of the optimal solution. Blum et al. \cite{blum1991linear} was then the first to prove a $O(n)$ bound, with a modified version of the commonly used greedy algorithm, and was also able to prove a $4*n$ upper bound on the length of the superstring produced by the greedy approximation algorithm.  Now we will go into more detail about previous work on the shortest common superstring problem. 
 
 \subsection*{Notational preliminaries}
 
