@@ -49,6 +49,7 @@ the conjectured $2*len(OPT)$ upper bound of the greedy approximation.  The first
 
 Let $S = {s_1 \ldots, s_m}$ be a set of $m$ strings over the alphabet $\sum$. The paper uses $OPT(S)$ which denotes the length of the shortest common superstring for the set $S$. If given two strings $s$ and $t$ the term $ov(s,t)$ denotes the amount of overlap between $s$ and $t$. For example, if $s = uv$ and $t = vw$ then $ov(s,t) = |v|$. The paper uses the term $pref(s,t)$ to denote the prefix of $s$ with respect to $t$, that is $pref(s,t) = u$. Lastly, $d(s,t)$ denotes the distance from $s$ to $t$. That is, $d(s,t) = |u|$. Finally, let $SCS$ denote the shortest common superstring for some algorithm. For a set of strings $S = {s_1, ..., s_m}$ where each string is unique, and any $s_i \in S$ is a sub-string of any other $s_k in S$ then the $SCS$ is trivially the concatenation of strings $SCS = s_1s_2...s_m$. There are these notions $first(SCS)$ and $last(SCS)$ which denote the first string in $SCS$ is the first string in the set $S$, and $last(SCS)$ is the last string in $SCS$. That is $first(SCS) = s_1$ and $last(SCS) = s_m$. \\
 
+\newpage
 Throughout the analysis we talk about constructing graphs, unless otherwise specified we are constructing a overlap graph, or a distance graph:\\
 
 \textbf{Distance graph}
@@ -59,7 +60,7 @@ Lastly, $E=V^2$.\\
 
 \begin{figure}[h]
  \centering
-   \includegraphics[width=.4\textwidth]{distance.png}
+   \includegraphics[width=.6\textwidth]{distance.png}
 \end{figure}
 
 
@@ -70,9 +71,11 @@ The cost $c$ between edges is denoted like above, but the true cost is $c(v_i,v_
 
 \begin{figure}[h]
  \centering
-   \includegraphics[width=.4\textwidth]{overlap.png}
+   \includegraphics[width=.6\textwidth]{overlap.png}
 \end{figure}
 
+
+\newpage
 \subsection{Related Work}
 Work on the Shortest common superstring problem has been around since 1977. In 1980 Gallant et al. in \textit{On Finding Minimal length superstrings}\cite{gallant1980finding} set the basis for work on the shortest common superstring problem. 
 
@@ -167,6 +170,19 @@ Blum et al. (1991) approached approximation algorithms for SCS from a different 
 
 $H$ is a directed graph, hardness holds for both directed and undirected, with a bounded degree $D$ specifying an instance of TSP(1,2).  For every vertex $v$ in $H$ there are two characters, $v$ and $v'$, and an additional character $\#$, so for each vertex $v$ there is the string $v\#v'$; This string is called the ``connector'' for v.  For each vertex $v$ in $H$, loop through the edges leaving $v$ in an arbitrary cyclic order: $(v, w_o),...,(v,w_{D-1})(*)$.  For the $i$th edge out of $v$ there is string $p_i(v) = v'w_{i-1}v'$.  A graph $G_S$, as described earlier in the paper, is a distance-weighted graph, and is constructed for the set of strings $p$.  If the subgraph of $G_S$, $G_2$ with only edges of weight (2), there is a component for each vertex $v$ in $H$.  This is because and two strings $p_i(v)$, will have distance of $2$ from eachother, and therefore the vertices from $p_i(v)$ will form a cycle in in their component in $G_2$.  In each component in $G_2$, there is also a ``connector'' vertex with an edge to each vertex $p_i(v)$.  
 
+
+
+
+\textbf{Theorem}\\
+GREEDY produces a string of length at most $4 * OPT(S)$
+
+\textbf{Explanation of proof}
+
+If we sort the edges of the overlap grpah $G$ in descending order, GREEDY operates by iterating over the list and determining whether the slected edge should be included in the SCS. We can label edges in this list with the terms ``better'' and ``worse''. An edge is determined to be better if it has a larger overlap than all others. An edge is determined to be worse has a smaller overlap than all others. Obviously, a better edge will have $\geq$ overlap to a worse edge. The paper also uses the term ``dominate'' to mean an edge $f$ has more overlap than an edge $e$ where $f$ shares a head or tail with $e$. GREEDY can choose not to include an edge under two conditions. Condition one is it will disclude an edge if we have previously included an edge that dominates the edge it's trying to merge. Lastly, it will not include an edge that creates a cycle. In this proof they use another term ``bad back edges'' which means an edge that would create a cycle if we were to choose it. You can think of a bad back edge as a string with more overlap with itself than it does with the string GREEDY is attempting to merge it with.\\
+
+If we take two bad back edges they are either disjoint or one is contained in the other. If the two intervals are contained in each other we denote the minimal innermost string of this containment as a ``culprit string''. Between two successive culprit strings is a path, which is referred as a ``weak link''. If we remove weak links we end up with disjoint ``blocks'' which are just paths. Each block has a nonempty cuplprit as the middle segment along with a left and right extension, which may or may not exist.
+
+Given a set $S_m$ where $S_m$ consits of the greedy edges together with the back edge of the culprit. When we apply the algorithm modified GREEDY to $S_m$ it will construct us an assignment $C_m$ that is an optimal assignment for $S_m$. We now create two graphs $G_l$ which is the left/middle portion of a block and $G_r$ which is the right/middle portion. $l_l$ and $l_r$ is denoted as the sum of the left and right extensions and $l_c$ to be the sum of the centers, and $o_w$ to be the sum of overlaps. They find optimal assignments on these two graphs, $M_l$ and $M_r$. With these two assignments they show that they can bound overlap but during the calculation some edges are double counted. In order to stop this double count and prove the upper bound they figure out how to get adjacent edges to dominate each other which reduces the double counting. Ultimately the show some math which we omit because we cant really explain it without copy pasting it here which proves the upper bound $4 * OPT(S)$.
 
 
 
