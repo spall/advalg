@@ -3,7 +3,7 @@
 \usepackage{authblk}
 \usepackage[margin=.5in]{geometry}
 \usepackage{setspace}
-\doublespace
+
 
 \iffalse 
 \addtolength{\oddsidemargin}{-.25in}
@@ -91,11 +91,11 @@ Three different approximation algorithms for SCS are then presented in the paper
 
 \subsection*{Main Results}
 
-\subsection*{$4 \ldots OPT(S)$ upper bound for MGREEDY}
+\subsection*{$4 * OPT(S)$ upper bound for MGREEDY}
 
 Reducing the SCS problem to a weighted directed  graph G, we end up with a set of strings $S$ which can be represented as a distance graph. Doing so opens the potential of finding a common superstring using existing solutions for Hamiltonian path problems. The algorithm works by finding a vertex disjoint cycle cover, where each vertex in the graph is contained in one cycle. In order to get a vertex disjoint cycle cover, the authors use a polynomial-time algorithm for the assignment problem. The assignment problem is the problem of finding a maximal or minimal weight matching between vertices in a weighted bipartite graph. To prove that the algorithm finds a SCS of length at most $4 * OPT(S)$ they prove that the the assignment algorithm finds some optimal weight matching on graph $G$. When the cycles in $G$ are found and unraveled they are at most length 4 of the optimal solution. To prove MGREEDY's approximation they first prove that an algorithm ``Concat-cycles'' produces a string at most 4 of the optimal, then show that MGREEDY mimics concat-cycles.
 
-\textbf{Concat-cycle algorithm}\\
+\subsection*{Concat-cycle algorithm}
 
 \textbf{A.} Given a set of strings $S$ reduce the set of strings to a distance graph $G$. \\
 \textbf{B.} Run a minimum weight assignment on $G$. The resulting set of cycles is $C$ where $C = \{c_1, ..., c_n\}$\\
@@ -115,17 +115,27 @@ We will explain now how the paper shows that the MGREEDY algorithm mimics concat
 
 Unlike Concat-cycles, MGREEDY operates on the overlap graph $G$, rather than the distance graph, and computes the maximum overlap. The algorithm works by repeatedly selecting an edge from a list of sorted edges, from highest to lowest. And deciding for each edge whether or not to include it. The algorithm continues by constructing and joining paths until disjoint cycles emerge such that all vertices in $G$ are covered. That is it selects an edge between vertices and merges them into one vertex. The assignment of covers $C$ is an optimal assignment, which they prove through a contradiction. They say that if there exists an edge with a maximum overlap it would have to be contained in the algorithms $C$. Since this is an optimal assignment it mimics the concat-cycles which also creates an optimal assignment. Once the assignment is complete they simply unroll the cycles and concatenate strings together. 
 
-\subsection*{$3 \ldots OPT(S)$ upper bound for TGREEDY}
+\subsection*{$3 * OPT(S)$ upper bound for TGREEDY}
 
 In the modified GREEDY algorithm the final step was to simply concatenate strings until only one string remained, the SCS. The authors propose that simply concatenating the strings is what is limiting the algorithm. They propose instead of simply concatenating strings together you run the original GREEDY algorithm on the strings. \\
 
 \textbf{Theorem}\\
-TGREEDY produces a superstring of at most $3 \ldots OPT(S)$\\
+TGREEDY produces a superstring of at most $3 * OPT(S)$\\
 
 \textbf{Explanation of the proof}
 
 The proof works by taking a set of ``self overlapping'' strings $S$ that were obtained by running MGREEDY, and an assignment $C$. They then create a new set of strings $S'$ which is a set of strings obtained by arbitrarily selecting strings out of a cycle $c_x$, where $x \in S$ and $c_x$ is the cycle corresponding to $x$. With this new set, $S'$ they then create another set $S''$ because they love three levels on indirection, and hate clarity. $S''$ is the set of strings from $S'$ placed into an equivalence class and rotated by one. It turns out $S''$ is a superstring for $S$. They point out that $S' \subseteq S$. From here they calculate some weights of edges in cycles between these prime and double prime sets and use some results from two other papers and get an upper bound of $3n$.\\
 
+\textbf{Theorem}\\
+GREEDY produces a string of length at most $4 * OPT(S)$
+
+\textbf{Explanation of proof}
+
+If we sort the edges of the overlap graph $G$ in descending order, GREEDY operates by iterating over the list and determining whether the selected edge should be included in the SCS. We can label edges in this list with the terms ``better'' and ``worse''. An edge is determined to be better if it has a larger overlap than another edge. An edge is determined to be worse if it has a smaller overlap than another edge. Obviously, a better edge will have $\geq$ overlap to a worse edge. The paper also uses the term ``dominate'' to mean an edge $f$ has more overlap than an edge $e$ where $f$ shares a head or tail with $e$. GREEDY can choose not to include an edge under two conditions. Condition one is it will disclude an edge if we have previously included an edge that dominates the edge it's trying to merge. Lastly, it will not include an edge that creates a cycle. In this proof they use another term ``bad back edges'' which means an edge that would create a cycle if we were to choose it. You can think of a bad back edge as a string with more overlap with itself than it does with the string GREEDY is attempting to merge it with.\\
+
+If we take two bad back edges they are either disjoint or one is contained in the other. If the two intervals are contained in each other we denote the minimal innermost string of this containment as a ``culprit string''. Between two successive culprit strings is a path, which is referred as a ``weak link''. If we remove weak links we end up with disjoint ``blocks'' which are just paths. Each block has a nonempty culprit as the middle segment along with a left and right extension, which may or may not exist.
+
+Given a set $S_m$ where $S_m$ consits of the greedy edges together with the back edge of the culprit. When we apply the algorithm modified GREEDY to $S_m$ it will construct us an assignment $C_m$ that is an optimal assignment for $S_m$. We now create two graphs $G_l$ which is the left/middle portion of a block and $G_r$ which is the right/middle portion. $l_l$ and $l_r$ is denoted as the sum of the left and right extensions and $l_c$ to be the sum of the centers, and $o_w$ to be the sum of overlaps. They find optimal assignments on these two graphs, $M_l$ and $M_r$. With these two assignments they show that they can bound overlap but during the calculation some edges are double counted. In order to stop this double count and prove the upper bound they figure out how to get adjacent edges to dominate each other which reduces the double counting. Ultimately the show some math which we omit because we cant really explain it without copy pasting it here which proves the upper bound $4 * OPT(S)$.
 
 \textbf{The superstring problem is MAX SNP-hard}
 
@@ -139,22 +149,7 @@ $H$ is a directed graph, hardness holds for both directed and undirected, with a
 
 
 
-\textbf{Theorem}\\
-GREEDY produces a string of length at most $4 * OPT(S)$
-
-\textbf{Explanation of proof}
-
-If we sort the edges of the overlap graph $G$ in descending order, GREEDY operates by iterating over the list and determining whether the selected edge should be included in the SCS. We can label edges in this list with the terms ``better'' and ``worse''. An edge is determined to be better if it has a larger overlap than all others. An edge is determined to be worse has a smaller overlap than all others. Obviously, a better edge will have $\geq$ overlap to a worse edge. The paper also uses the term ``dominate'' to mean an edge $f$ has more overlap than an edge $e$ where $f$ shares a head or tail with $e$. GREEDY can choose not to include an edge under two conditions. Condition one is it will disclude an edge if we have previously included an edge that dominates the edge it's trying to merge. Lastly, it will not include an edge that creates a cycle. In this proof they use another term ``bad back edges'' which means an edge that would create a cycle if we were to choose it. You can think of a bad back edge as a string with more overlap with itself than it does with the string GREEDY is attempting to merge it with.\\
-
-If we take two bad back edges they are either disjoint or one is contained in the other. If the two intervals are contained in each other we denote the minimal innermost string of this containment as a ``culprit string''. Between two successive culprit strings is a path, which is referred as a ``weak link''. If we remove weak links we end up with disjoint ``blocks'' which are just paths. Each block has a nonempty culprit as the middle segment along with a left and right extension, which may or may not exist.
-
-Given a set $S_m$ where $S_m$ consits of the greedy edges together with the back edge of the culprit. When we apply the algorithm modified GREEDY to $S_m$ it will construct us an assignment $C_m$ that is an optimal assignment for $S_m$. We now create two graphs $G_l$ which is the left/middle portion of a block and $G_r$ which is the right/middle portion. $l_l$ and $l_r$ is denoted as the sum of the left and right extensions and $l_c$ to be the sum of the centers, and $o_w$ to be the sum of overlaps. They find optimal assignments on these two graphs, $M_l$ and $M_r$. With these two assignments they show that they can bound overlap but during the calculation some edges are double counted. In order to stop this double count and prove the upper bound they figure out how to get adjacent edges to dominate each other which reduces the double counting. Ultimately the show some math which we omit because we cant really explain it without copy pasting it here which proves the upper bound $4 * OPT(S)$.
-
-
-
-
-
-\subsection{Conclusion}
+\subsection*{Conclusion}
 There has been a large amount of improvements and followups on the SCS problem. Blum et al. proved an an upper bound on an approximation algorithm and was the first to prove an upper bound on the order of $O(n)$, where n is the length of the shortest common superstring. Successive papers throughout the years improved the upper bounds: Teng and Yao improved the bound to $2 \frac{8}{9} n$; Czumaj et al. to $2 \frac{5}{6} n$; Kosaraju, Stien and Park to $2 \frac{50}{63} n$; Stein and Armen to $2 \frac{3}{4} n$, then to $2 \frac{2}{3} n$; Breslauer et al. to 2.596 and lastly $2.5 n$ by Sweedyk \cite{sweedyk2000boldmath}. We will quickly describe what Sweedyk does.
 
 In some previous algorithms, including the one in Blum et al a minimum weight directed graph $G$ where each edge in the graph has a positive weight was constructed. And a cycle cover on the graph would be constructed. The set of cycle-covers would then be converted into strings that would be concatenated together to form a common superstring.
